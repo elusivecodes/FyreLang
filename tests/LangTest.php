@@ -168,6 +168,18 @@ final class LangTest extends TestCase
         );
     }
 
+    public function testLangGetInvalid(): void
+    {
+        $cwd = getcwd();
+
+        Lang::addPath($cwd.'/tests/lang/dir1');
+
+        $this->assertEquals(
+            null,
+            Lang::get('test.invalid')
+        );
+    }
+
     public function testLangGetLocale(): void
     {
         Lang::setLocale('ru');
