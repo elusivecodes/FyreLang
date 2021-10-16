@@ -7,17 +7,12 @@ use
     Fyre\Lang,
     PHPUnit\Framework\TestCase;
 
-use function
-    getcwd;
-
 final class LangTest extends TestCase
 {
 
     public function testAddPath(): void
     {
-        $cwd = getcwd();
-
-        Lang::addPath($cwd.'/tests/lang/dir1');
+        Lang::addPath('tests/lang/dir1');
 
         $this->assertEquals(
             'Value',
@@ -27,10 +22,8 @@ final class LangTest extends TestCase
 
     public function testAddPaths(): void
     {
-        $cwd = getcwd();
-
-        Lang::addPath($cwd.'/tests/lang/dir1');
-        Lang::addPath($cwd.'/tests/lang/dir2');
+        Lang::addPath('tests/lang/dir1');
+        Lang::addPath('tests/lang/dir2');
 
         $this->assertEquals(
             'Alternate',
@@ -40,10 +33,8 @@ final class LangTest extends TestCase
 
     public function testAddPathsWithPrepend(): void
     {
-        $cwd = getcwd();
-
-        Lang::addPath($cwd.'/tests/lang/dir1');
-        Lang::addPath($cwd.'/tests/lang/dir2', true);
+        Lang::addPath('tests/lang/dir1');
+        Lang::addPath('tests/lang/dir2', true);
 
         $this->assertEquals(
             'Value',
@@ -53,9 +44,7 @@ final class LangTest extends TestCase
 
     public function testGet(): void
     {
-        $cwd = getcwd();
-
-        Lang::addPath($cwd.'/tests/lang/dir1');
+        Lang::addPath('tests/lang/dir1');
 
         $this->assertEquals(
             'Value',
@@ -65,9 +54,7 @@ final class LangTest extends TestCase
 
     public function testGetArray(): void
     {
-        $cwd = getcwd();
-
-        Lang::addPath($cwd.'/tests/lang/dir1');
+        Lang::addPath('tests/lang/dir1');
 
         $this->assertEquals(
             [
@@ -81,9 +68,7 @@ final class LangTest extends TestCase
 
     public function testGetDeep(): void
     {
-        $cwd = getcwd();
-
-        Lang::addPath($cwd.'/tests/lang/dir1');
+        Lang::addPath('tests/lang/dir1');
 
         $this->assertEquals(
             'Value 1',
@@ -93,9 +78,7 @@ final class LangTest extends TestCase
 
     public function testGetWithData(): void
     {
-        $cwd = getcwd();
-
-        Lang::addPath($cwd.'/tests/lang/dir1');
+        Lang::addPath('tests/lang/dir1');
 
         $this->assertEquals(
             'This is a test',
@@ -105,10 +88,8 @@ final class LangTest extends TestCase
 
     public function testGetPathFallback(): void
     {
-        $cwd = getcwd();
-
-        Lang::addPath($cwd.'/tests/lang/dir1');
-        Lang::addPath($cwd.'/tests/lang/dir2');
+        Lang::addPath('tests/lang/dir1');
+        Lang::addPath('tests/lang/dir2');
 
         $this->assertEquals(
             'Fallback',
@@ -118,10 +99,8 @@ final class LangTest extends TestCase
 
     public function testGetLocaleFallback(): void
     {
-        $cwd = getcwd();
-
         Lang::setLocale('ru');
-        Lang::addPath($cwd.'/tests/lang/dir1');
+        Lang::addPath('tests/lang/dir1');
 
         $this->assertEquals(
             'Fallback',
@@ -131,10 +110,8 @@ final class LangTest extends TestCase
 
     public function testGetLocaleCountry(): void
     {
-        $cwd = getcwd();
-
         Lang::setLocale('en_au');
-        Lang::addPath($cwd.'/tests/lang/dir2');
+        Lang::addPath('tests/lang/dir2');
 
         $this->assertEquals(
             'Localized',
@@ -144,10 +121,8 @@ final class LangTest extends TestCase
 
     public function testGetLocaleCountryCase(): void
     {
-        $cwd = getcwd();
-
         Lang::setLocale('en_AU');
-        Lang::addPath($cwd.'/tests/lang/dir2');
+        Lang::addPath('tests/lang/dir2');
 
         $this->assertEquals(
             'Localized',
@@ -157,10 +132,8 @@ final class LangTest extends TestCase
 
     public function testGetLocaleCountryExtended(): void
     {
-        $cwd = getcwd();
-
         Lang::setLocale('en_au_posix');
-        Lang::addPath($cwd.'/tests/lang/dir2');
+        Lang::addPath('tests/lang/dir2');
 
         $this->assertEquals(
             'Localized',
@@ -170,9 +143,7 @@ final class LangTest extends TestCase
 
     public function testGetInvalid(): void
     {
-        $cwd = getcwd();
-
-        Lang::addPath($cwd.'/tests/lang/dir1');
+        Lang::addPath('tests/lang/dir1');
 
         $this->assertEquals(
             null,
