@@ -56,7 +56,7 @@ Get a language value.
 Lang::get($key, $data);
 ```
 
-See the *MessageFormatter* [https://www.php.net/manual/en/messageformatter.formatmessage.php](formatMessage) method for details about message formatting.
+See the *MessageFormatter* [formatMessage](https://www.php.net/manual/en/messageformatter.formatmessage.php) method for details about message formatting.
 
 **Get Default Locale**
 
