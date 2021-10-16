@@ -53,7 +53,7 @@ Get a language value.
 - `$data` is an array containing data to insert into the language string.
 
 ```php
-Lang::get($key, $data);
+$lang = Lang::get($key, $data);
 ```
 
 See the [*MessageFormatter::formatMessage*](https://www.php.net/manual/en/messageformatter.formatmessage.php) method for details about message formatting.
