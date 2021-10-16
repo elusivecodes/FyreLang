@@ -13,7 +13,7 @@ use function
 final class LangTest extends TestCase
 {
 
-    public function testLangAddPath(): void
+    public function testAddPath(): void
     {
         $cwd = getcwd();
 
@@ -25,7 +25,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangAddPaths(): void
+    public function testAddPaths(): void
     {
         $cwd = getcwd();
 
@@ -38,7 +38,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangAddPathsWithPrepend(): void
+    public function testAddPathsWithPrepend(): void
     {
         $cwd = getcwd();
 
@@ -51,7 +51,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGet(): void
+    public function testGet(): void
     {
         $cwd = getcwd();
 
@@ -63,7 +63,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGetArray(): void
+    public function testGetArray(): void
     {
         $cwd = getcwd();
 
@@ -79,7 +79,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGetDeep(): void
+    public function testGetDeep(): void
     {
         $cwd = getcwd();
 
@@ -91,7 +91,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGetWithData(): void
+    public function testGetWithData(): void
     {
         $cwd = getcwd();
 
@@ -103,7 +103,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGetPathFallback(): void
+    public function testGetPathFallback(): void
     {
         $cwd = getcwd();
 
@@ -116,7 +116,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGetLocaleFallback(): void
+    public function testGetLocaleFallback(): void
     {
         $cwd = getcwd();
 
@@ -129,7 +129,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGetLocaleCountry(): void
+    public function testGetLocaleCountry(): void
     {
         $cwd = getcwd();
 
@@ -142,7 +142,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGetLocaleCountryCase(): void
+    public function testGetLocaleCountryCase(): void
     {
         $cwd = getcwd();
 
@@ -155,7 +155,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGetLocaleCountryExtended(): void
+    public function testGetLocaleCountryExtended(): void
     {
         $cwd = getcwd();
 
@@ -168,7 +168,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGetInvalid(): void
+    public function testGetInvalid(): void
     {
         $cwd = getcwd();
 
@@ -180,7 +180,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGetLocale(): void
+    public function testGetLocale(): void
     {
         Lang::setLocale('ru');
 
@@ -190,7 +190,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGetLocaleDefault(): void
+    public function testGetLocaleDefault(): void
     {
         $this->assertEquals(
             'en',
@@ -198,7 +198,7 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testLangGetDefaultLocale(): void
+    public function testGetDefaultLocale(): void
     {
         Lang::setDefaultLocale('ru');
 
