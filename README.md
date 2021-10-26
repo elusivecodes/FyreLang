@@ -20,7 +20,7 @@ composer install fyre/lang
 In PHP:
 
 ```php
-use Fyre\Lang;
+use Fyre\Lang\Lang;
 ```
 
 

@@ -1,6 +1,6 @@
 {
     "name": "fyre/lang",
-    "description": "An language utility library.",
+    "description": "A language utility library.",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Fyre\\": "src/"
+            "Fyre\\Lang\\": "src/"
         }
     },
     "autoload-dev": {

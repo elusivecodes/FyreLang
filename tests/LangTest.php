@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use
-    Fyre\Lang,
+    Fyre\Lang\Lang,
     PHPUnit\Framework\TestCase;
 
 final class LangTest extends TestCase
