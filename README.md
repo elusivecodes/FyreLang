@@ -14,7 +14,7 @@
 **Using Composer**
 
 ```
-composer install fyre/lang
+composer require fyre/lang
 ```
 
 In PHP:
