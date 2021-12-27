@@ -4,11 +4,9 @@ declare(strict_types=1);
 namespace Fyre\Lang;
 
 use
+    Fyre\Utility\Path,
     Locale,
     MessageFormatter;
-
-use const
-    DIRECTORY_SEPARATOR;
 
 use function
     array_key_exists,
@@ -45,7 +43,7 @@ abstract class Lang
      */
     public static function addPath(string $path, bool $prepend = false): void
     {
-        $path = rtrim($path, DIRECTORY_SEPARATOR);
+        $path = Path::resolve($path);
 
         if ($prepend) {
             array_unshift(static::$paths, $path);
@@ -168,16 +166,6 @@ abstract class Lang
     }
 
     /**
-     * Join path segments.
-     * @param string ...$paths The path segments.
-     * @param string The file path.
-     */
-    private static function joinPath(string ...$paths): string
-    {
-        return implode(DIRECTORY_SEPARATOR, $paths);
-    }
-
-    /**
      * Load a language file.
      * @param string $file The file.
      * @return array The language values.
@@ -190,13 +178,13 @@ abstract class Lang
         $lang = [];
         foreach ($locales AS $locale) {
             foreach (static::$paths AS $path) {
-                $fullPath = static::joinPath($path, $locale, $file);
+                $filePath = Path::join($path, $locale, $file);
 
-                if (!file_exists($fullPath)) {
+                if (!file_exists($filePath)) {
                     continue;
                 }
 
-                $data = require $fullPath;
+                $data = require $filePath;
                 $lang = array_replace_recursive($lang, $data);
             }
         }
