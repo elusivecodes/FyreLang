@@ -19,8 +19,7 @@ use function
     is_array,
     rtrim,
     strtok,
-    strtolower,
-    substr;
+    strtolower;
 
 /**
  * Lang
