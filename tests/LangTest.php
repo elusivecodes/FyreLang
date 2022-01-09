@@ -14,7 +14,7 @@ final class LangTest extends TestCase
     {
         Lang::addPath('tests/lang/dir1');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Value',
             Lang::get('test.value')
         );
@@ -25,7 +25,7 @@ final class LangTest extends TestCase
         Lang::addPath('tests/lang/dir1');
         Lang::addPath('tests/lang/dir2');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Alternate',
             Lang::get('test.value')
         );
@@ -36,7 +36,7 @@ final class LangTest extends TestCase
         Lang::addPath('tests/lang/dir1');
         Lang::addPath('tests/lang/dir2', true);
 
-        $this->assertEquals(
+        $this->assertSame(
             'Value',
             Lang::get('test.value')
         );
@@ -46,7 +46,7 @@ final class LangTest extends TestCase
     {
         Lang::addPath('tests/lang/dir1');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Value',
             Lang::get('test.value')
         );
@@ -56,7 +56,7 @@ final class LangTest extends TestCase
     {
         Lang::addPath('tests/lang/dir1');
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'val1' => 'Value 1',
                 'val2' => 'Value 2',
@@ -70,7 +70,7 @@ final class LangTest extends TestCase
     {
         Lang::addPath('tests/lang/dir1');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Value 1',
             Lang::get('test.data.val1')
         );
@@ -80,7 +80,7 @@ final class LangTest extends TestCase
     {
         Lang::addPath('tests/lang/dir1');
 
-        $this->assertEquals(
+        $this->assertSame(
             'This is a test',
             Lang::get('test.message', ['test'])
         );
@@ -91,7 +91,7 @@ final class LangTest extends TestCase
         Lang::addPath('tests/lang/dir1');
         Lang::addPath('tests/lang/dir2');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Fallback',
             Lang::get('test.fallback')
         );
@@ -102,7 +102,7 @@ final class LangTest extends TestCase
         Lang::setLocale('ru');
         Lang::addPath('tests/lang/dir1');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Fallback',
             Lang::get('test.fallback')
         );
@@ -113,7 +113,7 @@ final class LangTest extends TestCase
         Lang::setLocale('en_au');
         Lang::addPath('tests/lang/dir2');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Localized',
             Lang::get('test.value')
         );
@@ -124,7 +124,7 @@ final class LangTest extends TestCase
         Lang::setLocale('en_AU');
         Lang::addPath('tests/lang/dir2');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Localized',
             Lang::get('test.value')
         );
@@ -135,7 +135,7 @@ final class LangTest extends TestCase
         Lang::setLocale('en_au_posix');
         Lang::addPath('tests/lang/dir2');
 
-        $this->assertEquals(
+        $this->assertSame(
             'Localized',
             Lang::get('test.value')
         );
@@ -145,8 +145,7 @@ final class LangTest extends TestCase
     {
         Lang::addPath('tests/lang/dir1');
 
-        $this->assertEquals(
-            null,
+        $this->assertNull(
             Lang::get('test.invalid')
         );
     }
@@ -155,7 +154,7 @@ final class LangTest extends TestCase
     {
         Lang::setLocale('ru');
 
-        $this->assertEquals(
+        $this->assertSame(
             'ru',
             Lang::getLocale()
         );
@@ -163,7 +162,7 @@ final class LangTest extends TestCase
 
     public function testGetLocaleDefault(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             'en',
             Lang::getLocale()
         );
@@ -173,7 +172,7 @@ final class LangTest extends TestCase
     {
         Lang::setDefaultLocale('ru');
 
-        $this->assertEquals(
+        $this->assertSame(
             'ru',
             Lang::getDefaultLocale()
         );
