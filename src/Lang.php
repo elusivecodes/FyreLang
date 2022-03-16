@@ -123,7 +123,7 @@ abstract class Lang
      * @param string $key The key.
      * @return mixed The value.
      */
-    private static function getDot(array $array, string $key)
+    private static function getDot(array $array, string $key): mixed
     {
         $result = $array;
 
