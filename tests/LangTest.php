@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use
-    Fyre\Lang\Lang,
-    PHPUnit\Framework\TestCase;
+use Fyre\Lang\Lang;
+use Fyre\Utility\Path;
+use PHPUnit\Framework\TestCase;
 
 final class LangTest extends TestCase
 {
@@ -39,6 +39,36 @@ final class LangTest extends TestCase
         $this->assertSame(
             'Value',
             Lang::get('test.value')
+        );
+    }
+
+    public function testAddPathDuplicate(): void
+    {
+        Lang::addPath('tests/lang/dir1');
+        Lang::addPath('tests/lang/dir2');
+        Lang::addPath('tests/lang/dir1');
+
+        $this->assertSame(
+            [
+                Path::resolve('tests/lang/dir1'),
+                Path::resolve('tests/lang/dir2')
+            ],
+            Lang::getPaths()
+        );
+    }
+
+    public function testAddPathPrependDuplicate(): void
+    {
+        Lang::addPath('tests/lang/dir1');
+        Lang::addPath('tests/lang/dir2');
+        Lang::addPath('tests/lang/dir2', true);
+
+        $this->assertSame(
+            [
+                Path::resolve('tests/lang/dir1'),
+                Path::resolve('tests/lang/dir2')
+            ],
+            Lang::getPaths()
         );
     }
 
@@ -178,11 +208,32 @@ final class LangTest extends TestCase
         );
     }
 
+    public function testRemovePath(): void
+    {
+        Lang::addPath('tests/lang/dir1');
+
+        $this->assertTrue(
+            Lang::removePath('tests/lang/dir1')
+        );
+
+        $this->assertEmpty(
+            Lang::getPaths()
+        );
+    }
+
+    public function testRemovePathInvalid(): void
+    {
+        $this->assertFalse(
+            Lang::removePath('tests/lang/dir1')
+        );
+    }
+
     protected function setUp(): void
     {
         Lang::setDefaultLocale('en');
         Lang::setLocale();
         Lang::clear();
+        Lang::clearPaths();
     }
 
 }

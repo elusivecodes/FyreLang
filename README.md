@@ -1,6 +1,6 @@
 # FyreLang
 
-**FyreLang** is a free, language library for *PHP*.
+**FyreLang** is a free, open-source language library for *PHP*.
 
 
 ## Table Of Contents
@@ -45,6 +45,14 @@ Clear all language data.
 Lang::clear();
 ```
 
+**Clear Paths**
+
+Clear the paths.
+
+```php
+Lang::clearPaths();
+```
+
 **Get**
 
 Get a language value.
@@ -74,6 +82,14 @@ Get the current locale.
 $locale = Lang::getLocale();
 ```
 
+**Get Paths**
+
+Get the paths.
+
+```php
+$paths = Lang::getPaths();
+```
+
 **Set Default Locale**
 
 Set the default locale.
@@ -82,6 +98,16 @@ Set the default locale.
 
 ```php
 Lang::setDefaultLocale($locale);
+```
+
+**Remove Path**
+
+Remove a path.
+
+- `$path` is the path to remove.
+
+```php
+$removed = Lang::removePath($path);
 ```
 
 **Set Locale**

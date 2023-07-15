@@ -3,23 +3,23 @@ declare(strict_types=1);
 
 namespace Fyre\Lang;
 
-use
-    Fyre\Utility\Path,
-    Locale,
-    MessageFormatter;
+use Fyre\Utility\Arr;
+use Fyre\Utility\Path;
+use Locale;
+use MessageFormatter;
 
-use function
-    array_key_exists,
-    array_pop,
-    array_unshift,
-    explode,
-    file_exists,
-    implode,
-    in_array,
-    is_array,
-    rtrim,
-    strtok,
-    strtolower;
+use function array_pop;
+use function array_replace_recursive;
+use function array_splice;
+use function array_unshift;
+use function explode;
+use function file_exists;
+use function implode;
+use function in_array;
+use function is_array;
+use function rtrim;
+use function strtok;
+use function strtolower;
 
 /**
  * Lang
@@ -44,6 +44,10 @@ abstract class Lang
     {
         $path = Path::resolve($path);
 
+        if (in_array($path, static::$paths)) {
+            return;
+        }
+
         if ($prepend) {
             array_unshift(static::$paths, $path);
         } else {
@@ -56,8 +60,15 @@ abstract class Lang
      */
     public static function clear(): void
     {
-        static::$paths = [];
         static::$lang = [];
+    }
+
+    /**
+     * Clear paths.
+     */
+    public static function clearPaths(): void
+    {
+        static::$paths = [];
     }
 
     /**
@@ -72,7 +83,7 @@ abstract class Lang
 
         static::$lang[$file] ??= static::load($file);
 
-        $line = static::getDot(static::$lang, $key);
+        $line = Arr::getDot(static::$lang, $key);
 
         if (!$line || $data === [] || is_array($line)) {
             return $line;
@@ -100,6 +111,37 @@ abstract class Lang
     }
 
     /**
+     * Get the paths.
+     * @return array The paths.
+     */
+    public static function getPaths(): array
+    {
+        return static::$paths;
+    }
+
+    /**
+     * Remove a path.
+     * @param string $path The path to remove.
+     * @return bool TRUE if the path was removed, otherwise FALSE.
+     */
+    public static function removePath(string $path): bool
+    {
+        $path = Path::resolve($path);
+
+        foreach (static::$paths AS $i => $otherPath) {
+            if ($otherPath !== $path) {
+                continue;
+            }
+
+            array_splice(static::$paths, $i, 1);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Set the default locale.
      * @param string|null $locale The locale.
      */
@@ -115,27 +157,6 @@ abstract class Lang
     public static function setLocale(string|null $locale = null): void
     {
         static::$locale = $locale;
-    }
-
-    /**
-     * Retrieve a value using "dot" notation.
-     * @param array $array The input array.
-     * @param string $key The key.
-     * @return mixed The value.
-     */
-    private static function getDot(array $array, string $key): mixed
-    {
-        $result = $array;
-
-        foreach (explode('.', $key) AS $key) {
-            if (!is_array($result) || !array_key_exists($key, $result)) {
-                return null;
-            }
-
-            $result = $result[$key];
-        }
-
-        return $result;
     }
 
     /**
