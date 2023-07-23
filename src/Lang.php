@@ -60,15 +60,8 @@ abstract class Lang
      */
     public static function clear(): void
     {
-        static::$lang = [];
-    }
-
-    /**
-     * Clear paths.
-     */
-    public static function clearPaths(): void
-    {
         static::$paths = [];
+        static::$lang = [];
     }
 
     /**

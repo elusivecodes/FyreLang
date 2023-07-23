@@ -45,14 +45,6 @@ Clear all language data.
 Lang::clear();
 ```
 
-**Clear Paths**
-
-Clear the paths.
-
-```php
-Lang::clearPaths();
-```
-
 **Get**
 
 Get a language value.

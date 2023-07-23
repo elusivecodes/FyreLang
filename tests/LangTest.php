@@ -233,7 +233,6 @@ final class LangTest extends TestCase
         Lang::setDefaultLocale('en');
         Lang::setLocale();
         Lang::clear();
-        Lang::clearPaths();
     }
 
 }
