@@ -17,7 +17,6 @@ use function file_exists;
 use function implode;
 use function in_array;
 use function is_array;
-use function rtrim;
 use function strtok;
 use function strtolower;
 
