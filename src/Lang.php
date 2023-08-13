@@ -5,7 +5,6 @@ namespace Fyre\Lang;
 
 use Fyre\Utility\Arr;
 use Fyre\Utility\Path;
-use Locale;
 use MessageFormatter;
 
 use function array_pop;
@@ -17,6 +16,7 @@ use function file_exists;
 use function implode;
 use function in_array;
 use function is_array;
+use function locale_get_default;
 use function strtok;
 use function strtolower;
 
@@ -90,7 +90,7 @@ abstract class Lang
      */
     public static function getDefaultLocale(): string
     {
-        return static::$defaultLocale ?? Locale::getDefault();
+        return static::$defaultLocale ?? locale_get_default();
     }
 
     /**
