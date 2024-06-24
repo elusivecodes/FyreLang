@@ -25,14 +25,10 @@ use function strtolower;
  */
 abstract class Lang
 {
-
-    private static array $paths = [];
-
-    private static array $lang = [];
-
     private static string|null $defaultLocale = null;
-
+    private static array $lang = [];
     private static string|null $locale = null;
+    private static array $paths = [];
 
     /**
      * Add a language path.
@@ -69,7 +65,7 @@ abstract class Lang
      * @param array $data The data to insert.
      * @return string|array|null The formatted language string.
      */
-    public static function get(string $key, array $data = []): string|array|null
+    public static function get(string $key, array $data = []): array|string|null
     {
         $file = strtok($key, '.');
 
@@ -120,7 +116,7 @@ abstract class Lang
     {
         $path = Path::resolve($path);
 
-        foreach (static::$paths AS $i => $otherPath) {
+        foreach (static::$paths as $i => $otherPath) {
             if ($otherPath !== $path) {
                 continue;
             }
@@ -159,7 +155,7 @@ abstract class Lang
     {
         $locales = [];
 
-        foreach ([static::getLocale(), static::getDefaultLocale()] AS $locale) {
+        foreach ([static::getLocale(), static::getDefaultLocale()] as $locale) {
             $locale = strtolower($locale);
             $localeParts = explode('_', $locale);
             while ($localeParts !== []) {
@@ -188,8 +184,8 @@ abstract class Lang
         $locales = static::getLocales();
 
         $lang = [];
-        foreach ($locales AS $locale) {
-            foreach (static::$paths AS $path) {
+        foreach ($locales as $locale) {
+            foreach (static::$paths as $path) {
                 $filePath = Path::join($path, $locale, $file);
 
                 if (!file_exists($filePath)) {
@@ -203,5 +199,4 @@ abstract class Lang
 
         return $lang;
     }
-
 }

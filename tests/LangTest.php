@@ -9,32 +9,16 @@ use PHPUnit\Framework\TestCase;
 
 final class LangTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        Lang::setDefaultLocale('en');
+        Lang::setLocale();
+        Lang::clear();
+    }
 
     public function testAddPath(): void
     {
         Lang::addPath('tests/lang/dir1');
-
-        $this->assertSame(
-            'Value',
-            Lang::get('test.value')
-        );
-    }
-
-    public function testAddPaths(): void
-    {
-        Lang::addPath('tests/lang/dir1');
-        Lang::addPath('tests/lang/dir2');
-
-        $this->assertSame(
-            'Alternate',
-            Lang::get('test.value')
-        );
-    }
-
-    public function testAddPathsWithPrepend(): void
-    {
-        Lang::addPath('tests/lang/dir1');
-        Lang::addPath('tests/lang/dir2', true);
 
         $this->assertSame(
             'Value',
@@ -72,6 +56,28 @@ final class LangTest extends TestCase
         );
     }
 
+    public function testAddPaths(): void
+    {
+        Lang::addPath('tests/lang/dir1');
+        Lang::addPath('tests/lang/dir2');
+
+        $this->assertSame(
+            'Alternate',
+            Lang::get('test.value')
+        );
+    }
+
+    public function testAddPathsWithPrepend(): void
+    {
+        Lang::addPath('tests/lang/dir1');
+        Lang::addPath('tests/lang/dir2', true);
+
+        $this->assertSame(
+            'Value',
+            Lang::get('test.value')
+        );
+    }
+
     public function testGet(): void
     {
         Lang::addPath('tests/lang/dir1');
@@ -106,35 +112,32 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testGetWithData(): void
+    public function testGetDefaultLocale(): void
     {
-        Lang::addPath('tests/lang/dir1');
+        Lang::setDefaultLocale('ru');
 
         $this->assertSame(
-            'This is a test',
-            Lang::get('test.message', ['test'])
+            'ru',
+            Lang::getDefaultLocale()
         );
     }
 
-    public function testGetPathFallback(): void
+    public function testGetInvalid(): void
     {
         Lang::addPath('tests/lang/dir1');
-        Lang::addPath('tests/lang/dir2');
 
-        $this->assertSame(
-            'Fallback',
-            Lang::get('test.fallback')
+        $this->assertNull(
+            Lang::get('test.invalid')
         );
     }
 
-    public function testGetLocaleFallback(): void
+    public function testGetLocale(): void
     {
         Lang::setLocale('ru');
-        Lang::addPath('tests/lang/dir1');
 
         $this->assertSame(
-            'Fallback',
-            Lang::get('test.fallback')
+            'ru',
+            Lang::getLocale()
         );
     }
 
@@ -171,25 +174,6 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testGetInvalid(): void
-    {
-        Lang::addPath('tests/lang/dir1');
-
-        $this->assertNull(
-            Lang::get('test.invalid')
-        );
-    }
-
-    public function testGetLocale(): void
-    {
-        Lang::setLocale('ru');
-
-        $this->assertSame(
-            'ru',
-            Lang::getLocale()
-        );
-    }
-
     public function testGetLocaleDefault(): void
     {
         $this->assertSame(
@@ -198,13 +182,35 @@ final class LangTest extends TestCase
         );
     }
 
-    public function testGetDefaultLocale(): void
+    public function testGetLocaleFallback(): void
     {
-        Lang::setDefaultLocale('ru');
+        Lang::setLocale('ru');
+        Lang::addPath('tests/lang/dir1');
 
         $this->assertSame(
-            'ru',
-            Lang::getDefaultLocale()
+            'Fallback',
+            Lang::get('test.fallback')
+        );
+    }
+
+    public function testGetPathFallback(): void
+    {
+        Lang::addPath('tests/lang/dir1');
+        Lang::addPath('tests/lang/dir2');
+
+        $this->assertSame(
+            'Fallback',
+            Lang::get('test.fallback')
+        );
+    }
+
+    public function testGetWithData(): void
+    {
+        Lang::addPath('tests/lang/dir1');
+
+        $this->assertSame(
+            'This is a test',
+            Lang::get('test.message', ['test'])
         );
     }
 
@@ -227,12 +233,4 @@ final class LangTest extends TestCase
             Lang::removePath('tests/lang/dir1')
         );
     }
-
-    protected function setUp(): void
-    {
-        Lang::setDefaultLocale('en');
-        Lang::setLocale();
-        Lang::clear();
-    }
-
 }
