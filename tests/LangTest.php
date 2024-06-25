@@ -9,13 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 final class LangTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Lang::setDefaultLocale('en');
-        Lang::setLocale();
-        Lang::clear();
-    }
-
     public function testAddPath(): void
     {
         Lang::addPath('tests/lang/dir1');
@@ -35,7 +28,7 @@ final class LangTest extends TestCase
         $this->assertSame(
             [
                 Path::resolve('tests/lang/dir1'),
-                Path::resolve('tests/lang/dir2')
+                Path::resolve('tests/lang/dir2'),
             ],
             Lang::getPaths()
         );
@@ -50,7 +43,7 @@ final class LangTest extends TestCase
         $this->assertSame(
             [
                 Path::resolve('tests/lang/dir1'),
-                Path::resolve('tests/lang/dir2')
+                Path::resolve('tests/lang/dir2'),
             ],
             Lang::getPaths()
         );
@@ -96,7 +89,7 @@ final class LangTest extends TestCase
             [
                 'val1' => 'Value 1',
                 'val2' => 'Value 2',
-                'val3' => 'Value 3'
+                'val3' => 'Value 3',
             ],
             Lang::get('test.data')
         );
@@ -232,5 +225,12 @@ final class LangTest extends TestCase
         $this->assertFalse(
             Lang::removePath('tests/lang/dir1')
         );
+    }
+
+    protected function setUp(): void
+    {
+        Lang::setDefaultLocale('en');
+        Lang::setLocale();
+        Lang::clear();
     }
 }

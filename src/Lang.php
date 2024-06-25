@@ -26,12 +26,16 @@ use function strtolower;
 abstract class Lang
 {
     private static string|null $defaultLocale = null;
+
     private static array $lang = [];
+
     private static string|null $locale = null;
+
     private static array $paths = [];
 
     /**
      * Add a language path.
+     *
      * @param string $path The path to add.
      * @param bool $prepend Whether to prepend the path.
      */
@@ -61,6 +65,7 @@ abstract class Lang
 
     /**
      * Get a language value.
+     *
      * @param string $key The language key.
      * @param array $data The data to insert.
      * @return string|array|null The formatted language string.
@@ -82,6 +87,7 @@ abstract class Lang
 
     /**
      * Get the default locale.
+     *
      * @return string The default locale.
      */
     public static function getDefaultLocale(): string
@@ -91,6 +97,7 @@ abstract class Lang
 
     /**
      * Get the current locale.
+     *
      * @return string The current locale.
      */
     public static function getLocale(): string
@@ -100,6 +107,7 @@ abstract class Lang
 
     /**
      * Get the paths.
+     *
      * @return array The paths.
      */
     public static function getPaths(): array
@@ -109,6 +117,7 @@ abstract class Lang
 
     /**
      * Remove a path.
+     *
      * @param string $path The path to remove.
      * @return bool TRUE if the path was removed, otherwise FALSE.
      */
@@ -131,6 +140,7 @@ abstract class Lang
 
     /**
      * Set the default locale.
+     *
      * @param string|null $locale The locale.
      */
     public static function setDefaultLocale(string|null $locale = null): void
@@ -140,6 +150,7 @@ abstract class Lang
 
     /**
      * Set the current locale.
+     *
      * @param string|null $locale The locale.
      */
     public static function setLocale(string|null $locale = null): void
@@ -149,6 +160,7 @@ abstract class Lang
 
     /**
      * Get a list of locales.
+     *
      * @return array The locales.
      */
     private static function getLocales(): array
@@ -175,6 +187,7 @@ abstract class Lang
 
     /**
      * Load a language file.
+     *
      * @param string $file The file.
      * @return array The language values.
      */

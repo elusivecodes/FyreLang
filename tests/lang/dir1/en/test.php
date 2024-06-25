@@ -8,6 +8,6 @@ return [
     'data' => [
         'val1' => 'Value 1',
         'val2' => 'Value 2',
-        'val3' => 'Value 3'
-    ]
+        'val3' => 'Value 3',
+    ],
 ];
