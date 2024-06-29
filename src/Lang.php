@@ -68,7 +68,7 @@ abstract class Lang
      *
      * @param string $key The language key.
      * @param array $data The data to insert.
-     * @return string|array|null The formatted language string.
+     * @return array|string|null The formatted language string.
      */
     public static function get(string $key, array $data = []): array|string|null
     {
