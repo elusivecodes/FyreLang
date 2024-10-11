@@ -227,6 +227,26 @@ final class LangTest extends TestCase
         );
     }
 
+    public function testSetDefaultLocaleCallback(): void
+    {
+        Lang::setDefaultLocale(fn(): string => 'ru');
+
+        $this->assertSame(
+            'ru',
+            Lang::getDefaultLocale()
+        );
+    }
+
+    public function testSetLocaleCallback(): void
+    {
+        Lang::setLocale(fn(): string => 'ru');
+
+        $this->assertSame(
+            'ru',
+            Lang::getLocale()
+        );
+    }
+
     protected function setUp(): void
     {
         Lang::setDefaultLocale('en');

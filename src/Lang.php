@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Fyre\Lang;
 
+use Closure;
 use Fyre\Utility\Arr;
 use Fyre\Utility\Path;
 use MessageFormatter;
@@ -11,6 +12,7 @@ use function array_pop;
 use function array_replace_recursive;
 use function array_splice;
 use function array_unshift;
+use function call_user_func;
 use function explode;
 use function file_exists;
 use function implode;
@@ -25,11 +27,11 @@ use function strtolower;
  */
 abstract class Lang
 {
-    private static string|null $defaultLocale = null;
+    private static Closure|string|null $defaultLocale = null;
 
     private static array $lang = [];
 
-    private static string|null $locale = null;
+    private static Closure|string|null $locale = null;
 
     private static array $paths = [];
 
@@ -92,7 +94,11 @@ abstract class Lang
      */
     public static function getDefaultLocale(): string
     {
-        return static::$defaultLocale ?? locale_get_default();
+        if (static::$defaultLocale && static::$defaultLocale instanceof Closure) {
+            return call_user_func(static::$defaultLocale);
+        }
+
+        return static::$defaultLocale ??= locale_get_default();
     }
 
     /**
@@ -102,6 +108,10 @@ abstract class Lang
      */
     public static function getLocale(): string
     {
+        if (static::$locale && static::$locale instanceof Closure) {
+            return call_user_func(static::$locale);
+        }
+
         return static::$locale ?? static::getDefaultLocale();
     }
 
@@ -141,9 +151,9 @@ abstract class Lang
     /**
      * Set the default locale.
      *
-     * @param string|null $locale The locale.
+     * @param Closure|string|null $locale The locale.
      */
-    public static function setDefaultLocale(string|null $locale = null): void
+    public static function setDefaultLocale(Closure|string|null $locale = null): void
     {
         static::$defaultLocale = $locale;
     }
@@ -151,9 +161,9 @@ abstract class Lang
     /**
      * Set the current locale.
      *
-     * @param string|null $locale The locale.
+     * @param Closure|string|null $locale The locale, or a callback that returns the locale.
      */
-    public static function setLocale(string|null $locale = null): void
+    public static function setLocale(Closure|string|null $locale = null): void
     {
         static::$locale = $locale;
     }

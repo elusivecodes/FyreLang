@@ -30,7 +30,7 @@ use Fyre\Lang\Lang;
 
 Add a language path.
 
-- `$path` is the path to add.
+- `$path` is a string representing the path to add.
 - `$prepend` is a boolean indicating whether to prepend the file path, and will default to *false*.
 
 ```php
@@ -49,7 +49,7 @@ Lang::clear();
 
 Get a language value.
 
-- `$key` is the key to lookup.
+- `$key` is a string representing the key to lookup.
 - `$data` is an array containing data to insert into the language string.
 
 ```php
@@ -82,31 +82,31 @@ Get the paths.
 $paths = Lang::getPaths();
 ```
 
-**Set Default Locale**
-
-Set the default locale.
-
-- `$locale` is the locale.
-
-```php
-Lang::setDefaultLocale($locale);
-```
-
 **Remove Path**
 
 Remove a path.
 
-- `$path` is the path to remove.
+- `$path` is a string representing the path to remove.
 
 ```php
 $removed = Lang::removePath($path);
+```
+
+**Set Default Locale**
+
+Set the default locale.
+
+- `$locale` is a string representing the locale or a *Closure* that returns the locale.
+
+```php
+Lang::setDefaultLocale($locale);
 ```
 
 **Set Locale**
 
 Set the current locale.
 
-- `$locale` is the locale.
+- `$locale` is a string representing the locale, or a *Closure* that returns the locale.
 
 ```php
 Lang::setLocale($locale);
