@@ -12,7 +12,6 @@ use function array_pop;
 use function array_replace_recursive;
 use function array_splice;
 use function array_unshift;
-use function call_user_func;
 use function explode;
 use function file_exists;
 use function implode;
@@ -95,7 +94,7 @@ abstract class Lang
     public static function getDefaultLocale(): string
     {
         if (static::$defaultLocale && static::$defaultLocale instanceof Closure) {
-            return call_user_func(static::$defaultLocale);
+            return (static::$defaultLocale)();
         }
 
         return static::$defaultLocale ??= locale_get_default();
@@ -109,7 +108,7 @@ abstract class Lang
     public static function getLocale(): string
     {
         if (static::$locale && static::$locale instanceof Closure) {
-            return call_user_func(static::$locale);
+            return (static::$locale)();
         }
 
         return static::$locale ?? static::getDefaultLocale();
