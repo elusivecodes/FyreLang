@@ -39,14 +39,16 @@ class Lang
      *
      * @param array $paths The paths.
      * @param string|null $locale The locale.
+     * @param string|null $defaultLocale The default locale.
      */
-    public function __construct(array $paths = [], string|null $locale = null)
+    public function __construct(array $paths = [], string|null $locale = null, string|null $defaultLocale = null)
     {
+        $this->locale = $locale;
+        $this->defaultLocale = $defaultLocale;
+
         foreach ($paths as $path) {
             $this->addPath($path);
         }
-
-        $this->locale = $locale;
     }
 
     /**
@@ -163,6 +165,8 @@ class Lang
     {
         $this->defaultLocale = $locale;
 
+        $this->lang = [];
+
         return $this;
     }
 
@@ -175,6 +179,8 @@ class Lang
     public function setLocale(string|null $locale = null): static
     {
         $this->locale = $locale;
+
+        $this->lang = [];
 
         return $this;
     }

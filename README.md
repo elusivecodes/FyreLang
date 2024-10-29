@@ -27,11 +27,12 @@ use Fyre\Lang\Lang;
 
 ## Lang Creation
 
-- `$locale` is a string representing the locale.
-- `$paths` is an array containing the paths.
+- `$paths` is an array containing the paths, and will default to *[]*.
+- `$locale` is a string representing the locale, and will default to *null*.
+- `$defaultLocale` is a string representing the default locale, and will default to *null*.
 
 ```php
-$lang = new Lang($locale, $paths);
+$lang = new Lang($paths, $locale, $defaultLocale);
 ```
 
 
