@@ -28,7 +28,7 @@ use Fyre\Lang\Lang;
 ## Lang Creation
 
 - `$locale` is a string representing the locale.
-- `$paths` is an array of paths.
+- `$paths` is an array containing the paths.
 
 ```php
 $lang = new Lang($locale, $paths);
