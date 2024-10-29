@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Fyre\Lang;
 
-use Closure;
 use Fyre\Utility\Arr;
 use Fyre\Utility\Path;
 use MessageFormatter;
@@ -11,6 +10,7 @@ use MessageFormatter;
 use function array_pop;
 use function array_replace_recursive;
 use function array_splice;
+use function array_unique;
 use function array_unshift;
 use function explode;
 use function file_exists;
@@ -24,44 +24,59 @@ use function strtolower;
 /**
  * Lang
  */
-abstract class Lang
+class Lang
 {
-    private static Closure|string|null $defaultLocale = null;
+    protected string|null $defaultLocale = null;
 
-    private static array $lang = [];
+    protected array $lang = [];
 
-    private static Closure|string|null $locale = null;
+    protected string|null $locale = null;
 
-    private static array $paths = [];
+    protected array $paths = [];
+
+    /**
+     * New Lang constructor.
+     *
+     * @param array $paths The paths.
+     * @param string|null $locale The locale.
+     */
+    public function __construct(array $paths = [], string|null $locale = null)
+    {
+        foreach ($paths as $path) {
+            $this->addPath($path);
+        }
+
+        $this->locale = $locale;
+    }
 
     /**
      * Add a language path.
      *
      * @param string $path The path to add.
-     * @param bool $prepend Whether to prepend the path.
+     * @return static The Lang.
      */
-    public static function addPath(string $path, bool $prepend = false): void
+    public function addPath(string $path, bool $prepend = false): static
     {
         $path = Path::resolve($path);
 
-        if (in_array($path, static::$paths)) {
-            return;
+        if (!in_array($path, $this->paths)) {
+            if ($prepend) {
+                array_unshift($this->paths, $path);
+            } else {
+                $this->paths[] = $path;
+            }
         }
 
-        if ($prepend) {
-            array_unshift(static::$paths, $path);
-        } else {
-            static::$paths[] = $path;
-        }
+        return $this;
     }
 
     /**
      * Clear the language data.
      */
-    public static function clear(): void
+    public function clear(): void
     {
-        static::$paths = [];
-        static::$lang = [];
+        $this->paths = [];
+        $this->lang = [];
     }
 
     /**
@@ -71,19 +86,19 @@ abstract class Lang
      * @param array $data The data to insert.
      * @return array|string|null The formatted language string.
      */
-    public static function get(string $key, array $data = []): array|string|null
+    public function get(string $key, array $data = []): array|string|null
     {
         $file = strtok($key, '.');
 
-        static::$lang[$file] ??= static::load($file);
+        $this->lang[$file] ??= $this->load($file);
 
-        $line = Arr::getDot(static::$lang, $key);
+        $line = Arr::getDot($this->lang, $key);
 
         if (!$line || $data === [] || is_array($line)) {
             return $line;
         }
 
-        return MessageFormatter::formatMessage(static::getLocale(), $line, $data);
+        return MessageFormatter::formatMessage($this->getLocale(), $line, $data);
     }
 
     /**
@@ -91,13 +106,9 @@ abstract class Lang
      *
      * @return string The default locale.
      */
-    public static function getDefaultLocale(): string
+    public function getDefaultLocale(): string
     {
-        if (static::$defaultLocale && static::$defaultLocale instanceof Closure) {
-            return (static::$defaultLocale)();
-        }
-
-        return static::$defaultLocale ??= locale_get_default();
+        return $this->defaultLocale ??= locale_get_default();
     }
 
     /**
@@ -105,13 +116,9 @@ abstract class Lang
      *
      * @return string The current locale.
      */
-    public static function getLocale(): string
+    public function getLocale(): string
     {
-        if (static::$locale && static::$locale instanceof Closure) {
-            return (static::$locale)();
-        }
-
-        return static::$locale ?? static::getDefaultLocale();
+        return $this->locale ?? $this->getDefaultLocale();
     }
 
     /**
@@ -119,52 +126,57 @@ abstract class Lang
      *
      * @return array The paths.
      */
-    public static function getPaths(): array
+    public function getPaths(): array
     {
-        return static::$paths;
+        return $this->paths;
     }
 
     /**
      * Remove a path.
      *
      * @param string $path The path to remove.
-     * @return bool TRUE if the path was removed, otherwise FALSE.
+     * @return static The Lang.
      */
-    public static function removePath(string $path): bool
+    public function removePath(string $path): static
     {
         $path = Path::resolve($path);
 
-        foreach (static::$paths as $i => $otherPath) {
+        foreach ($this->paths as $i => $otherPath) {
             if ($otherPath !== $path) {
                 continue;
             }
 
-            array_splice(static::$paths, $i, 1);
-
-            return true;
+            array_splice($this->paths, $i, 1);
+            break;
         }
 
-        return false;
+        return $this;
     }
 
     /**
      * Set the default locale.
      *
-     * @param Closure|string|null $locale The locale.
+     * @param string|null $locale The locale.
+     * @return static The Lang.
      */
-    public static function setDefaultLocale(Closure|string|null $locale = null): void
+    public function setDefaultLocale(string|null $locale = null): static
     {
-        static::$defaultLocale = $locale;
+        $this->defaultLocale = $locale;
+
+        return $this;
     }
 
     /**
      * Set the current locale.
      *
-     * @param Closure|string|null $locale The locale, or a callback that returns the locale.
+     * @param string|null $locale The locale, or a callback that returns the locale.
+     * @return static The Lang.
      */
-    public static function setLocale(Closure|string|null $locale = null): void
+    public function setLocale(string|null $locale = null): static
     {
-        static::$locale = $locale;
+        $this->locale = $locale;
+
+        return $this;
     }
 
     /**
@@ -172,11 +184,13 @@ abstract class Lang
      *
      * @return array The locales.
      */
-    private static function getLocales(): array
+    protected function getLocales(): array
     {
+        $testLocales = array_unique([$this->getLocale(), $this->getDefaultLocale()]);
+
         $locales = [];
 
-        foreach ([static::getLocale(), static::getDefaultLocale()] as $locale) {
+        foreach ($testLocales as $locale) {
             $locale = strtolower($locale);
             $localeParts = explode('_', $locale);
             while ($localeParts !== []) {
@@ -200,14 +214,14 @@ abstract class Lang
      * @param string $file The file.
      * @return array The language values.
      */
-    private static function load(string $file): array
+    protected function load(string $file): array
     {
         $file .= '.php';
-        $locales = static::getLocales();
+        $locales = $this->getLocales();
 
         $lang = [];
         foreach ($locales as $locale) {
-            foreach (static::$paths as $path) {
+            foreach ($this->paths as $path) {
                 $filePath = Path::join($path, $locale, $file);
 
                 if (!file_exists($filePath)) {

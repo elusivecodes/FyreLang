@@ -5,7 +5,8 @@
 
 ## Table Of Contents
 - [Installation](#installation)
-- [Methods](#methods)
+- [Lang Creation](#lang-creation)
+- [Lang Methods](#lang-methods)
 
 
 
@@ -24,7 +25,17 @@ use Fyre\Lang\Lang;
 ```
 
 
-## Methods
+## Lang Creation
+
+- `$locale` is a string representing the locale.
+- `$paths` is an array of paths.
+
+```php
+$lang = new Lang($locale, $paths);
+```
+
+
+## Lang Methods
 
 **Add Path**
 
@@ -34,7 +45,7 @@ Add a language path.
 - `$prepend` is a boolean indicating whether to prepend the file path, and will default to *false*.
 
 ```php
-Lang::addPath($path, $prepend);
+$lang->addPath($path, $prepend);
 ```
 
 **Clear**
@@ -42,7 +53,7 @@ Lang::addPath($path, $prepend);
 Clear all language data.
 
 ```php
-Lang::clear();
+$lang->clear();
 ```
 
 **Get**
@@ -53,7 +64,7 @@ Get a language value.
 - `$data` is an array containing data to insert into the language string.
 
 ```php
-$lang = Lang::get($key, $data);
+$lang = $lang->get($key, $data);
 ```
 
 See the [*MessageFormatter::formatMessage*](https://www.php.net/manual/en/messageformatter.formatmessage.php) method for details about message formatting.
@@ -63,7 +74,7 @@ See the [*MessageFormatter::formatMessage*](https://www.php.net/manual/en/messag
 Get the default locale.
 
 ```php
-$defaultLocale = Lang::getDefaultLocale();
+$defaultLocale = $lang->getDefaultLocale();
 ```
 
 **Get Locale**
@@ -71,7 +82,7 @@ $defaultLocale = Lang::getDefaultLocale();
 Get the current locale.
 
 ```php
-$locale = Lang::getLocale();
+$locale = $lang->getLocale();
 ```
 
 **Get Paths**
@@ -79,7 +90,7 @@ $locale = Lang::getLocale();
 Get the paths.
 
 ```php
-$paths = Lang::getPaths();
+$paths = $lang->getPaths();
 ```
 
 **Remove Path**
@@ -89,25 +100,25 @@ Remove a path.
 - `$path` is a string representing the path to remove.
 
 ```php
-$removed = Lang::removePath($path);
+$lang->removePath($path);
 ```
 
 **Set Default Locale**
 
 Set the default locale.
 
-- `$locale` is a string representing the locale or a *Closure* that returns the locale.
+- `$locale` is a string representing the locale.
 
 ```php
-Lang::setDefaultLocale($locale);
+$lang->setDefaultLocale($locale);
 ```
 
 **Set Locale**
 
 Set the current locale.
 
-- `$locale` is a string representing the locale, or a *Closure* that returns the locale.
+- `$locale` is a string representing the locale.
 
 ```php
-Lang::setLocale($locale);
+$lang->setLocale($locale);
 ```
