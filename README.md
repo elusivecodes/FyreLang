@@ -5,8 +5,8 @@
 
 ## Table Of Contents
 - [Installation](#installation)
-- [Lang Creation](#lang-creation)
-- [Lang Methods](#lang-methods)
+- [Basic Usage](#basic-usage)
+- [Methods](#methods)
 
 
 
@@ -25,7 +25,7 @@ use Fyre\Lang\Lang;
 ```
 
 
-## Lang Creation
+## Basic Usage
 
 - `$paths` is an array containing the paths, and will default to *[]*.
 - `$locale` is a string representing the locale, and will default to *null*.
@@ -36,7 +36,7 @@ $lang = new Lang($paths, $locale, $defaultLocale);
 ```
 
 
-## Lang Methods
+## Methods
 
 **Add Path**
 
