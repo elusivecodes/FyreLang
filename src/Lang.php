@@ -35,23 +35,6 @@ class Lang
     protected array $paths = [];
 
     /**
-     * New Lang constructor.
-     *
-     * @param array $paths The paths.
-     * @param string|null $locale The locale.
-     * @param string|null $defaultLocale The default locale.
-     */
-    public function __construct(array $paths = [], string|null $locale = null, string|null $defaultLocale = null)
-    {
-        $this->locale = $locale;
-        $this->defaultLocale = $defaultLocale;
-
-        foreach ($paths as $path) {
-            $this->addPath($path);
-        }
-    }
-
-    /**
      * Add a language path.
      *
      * @param string $path The path to add.

@@ -242,6 +242,7 @@ final class LangTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->lang = new Lang([], 'en');
+        $this->lang = new Lang();
+        $this->lang->setLocale('en');
     }
 }

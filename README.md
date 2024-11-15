@@ -27,12 +27,16 @@ use Fyre\Lang\Lang;
 
 ## Basic Usage
 
-- `$paths` is an array containing the paths, and will default to *[]*.
-- `$locale` is a string representing the locale, and will default to *null*.
-- `$defaultLocale` is a string representing the default locale, and will default to *null*.
+```php
+$lang = new Lang();
+```
+
+**Autoloading**
+
+It is recommended to bind the *Lang* to the [*Container*](https://github.com/elusivecodes/FyreContainer) as a singleton.
 
 ```php
-$lang = new Lang($paths, $locale, $defaultLocale);
+$container->singleton(Lang::class);
 ```
 
 
