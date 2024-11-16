@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Fyre\Config\Config;
 use Fyre\Lang\Lang;
 use Fyre\Utility\Path;
 use PHPUnit\Framework\TestCase;
@@ -242,7 +243,9 @@ final class LangTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->lang = new Lang();
-        $this->lang->setLocale('en');
+        $config = new Config();
+        $config->set('App.locale', 'en');
+
+        $this->lang = new Lang($config);
     }
 }

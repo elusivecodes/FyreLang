@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b831eab4908512e19f7b34afa6612596",
+    "content-hash": "f72b35dc24cd8552bba158d3927514eb",
     "packages": [
         {
             "name": "fyre/array",
@@ -47,6 +47,52 @@
                 "source": "https://github.com/elusivecodes/FyreArray/tree/v2.0.12"
             },
             "time": "2024-10-30T10:48:56+00:00"
+        },
+        {
+            "name": "fyre/config",
+            "version": "v4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elusivecodes/FyreConfig.git",
+                "reference": "12653b47c5a7181840ece99c8a8d986dd5efad86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elusivecodes/FyreConfig/zipball/12653b47c5a7181840ece99c8a8d986dd5efad86",
+                "reference": "12653b47c5a7181840ece99c8a8d986dd5efad86",
+                "shasum": ""
+            },
+            "require": {
+                "fyre/array": "^2.0",
+                "fyre/path": "^2.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.59",
+                "fyre/php-cs-fixer-config": "^1.0",
+                "phpunit/phpunit": "^11"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fyre\\Config\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "elusivecodes",
+                    "email": "elusivecodes@gmail.com"
+                }
+            ],
+            "description": "A configuration library.",
+            "support": {
+                "issues": "https://github.com/elusivecodes/FyreConfig/issues",
+                "source": "https://github.com/elusivecodes/FyreConfig/tree/v4.1.0"
+            },
+            "time": "2024-11-15T10:10:09+00:00"
         },
         {
             "name": "fyre/path",

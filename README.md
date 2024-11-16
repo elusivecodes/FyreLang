@@ -27,9 +27,13 @@ use Fyre\Lang\Lang;
 
 ## Basic Usage
 
+- `$config` is a [*Config*](https://github.com/elusivecodes/FyreConfig).
+
 ```php
-$lang = new Lang();
+$lang = new Lang($config);
 ```
+
+The default locale will be resolved from the "*App.locale*" key in the *Config*.
 
 **Autoloading**
 
@@ -37,6 +41,12 @@ It is recommended to bind the *Lang* to the [*Container*](https://github.com/elu
 
 ```php
 $container->singleton(Lang::class);
+```
+
+Any dependencies will be injected automatically when loading from the [*Container*](https://github.com/elusivecodes/FyreContainer).
+
+```php
+$lang = $container->use(Lang::class);
 ```
 
 

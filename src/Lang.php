@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Fyre\Lang;
 
+use Fyre\Config\Config;
 use Fyre\Utility\Arr;
 use Fyre\Utility\Path;
 use MessageFormatter;
@@ -33,6 +34,16 @@ class Lang
     protected string|null $locale = null;
 
     protected array $paths = [];
+
+    /**
+     * New Lang constructor.
+     *
+     * @param Config $config The Config.
+     */
+    public function __construct(Config $config)
+    {
+        $this->defaultLocale = $config->get('App.locale');
+    }
 
     /**
      * Add a language path.
