@@ -244,7 +244,7 @@ final class LangTest extends TestCase
     protected function setUp(): void
     {
         $config = new Config();
-        $config->set('App.locale', 'en');
+        $config->set('App.defaultLocale', 'en');
 
         $this->lang = new Lang($config);
     }

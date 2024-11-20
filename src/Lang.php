@@ -42,7 +42,7 @@ class Lang
      */
     public function __construct(Config $config)
     {
-        $this->defaultLocale = $config->get('App.locale');
+        $this->defaultLocale = $config->get('App.defaultLocale');
     }
 
     /**

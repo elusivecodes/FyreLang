@@ -33,7 +33,7 @@ use Fyre\Lang\Lang;
 $lang = new Lang($config);
 ```
 
-The default locale will be resolved from the "*App.locale*" key in the *Config*.
+The default locale will be resolved from the "*App.defaultLocale*" key in the *Config*.
 
 **Autoloading**
 
